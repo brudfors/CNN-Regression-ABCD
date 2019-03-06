@@ -1,0 +1,13 @@
+## Folder ignore
+/Data
+/Log
+/Python/__pycache__
+/Results
+/Scores
+
+## MATLAB
+*.m~
+
+## Python ignores
+*.pyc
+*.ipynb_checkpoints
