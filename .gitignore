@@ -11,3 +11,4 @@
 ## Python ignores
 *.pyc
 *.ipynb_checkpoints
+*.ipynb
