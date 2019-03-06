@@ -270,7 +270,11 @@ def get_slice(X,Shape):
     # Get slice(s) in the z-direction
     #___________________________________________________________________    
     
-    N  = len(X)     
+    if isinstance(X, (list,)):
+        N  = len(X)     
+    else:
+        N = 1
+        
     x  = get_img(X,Shape)
     x  = np.squeeze(x) 
     dm = x.shape            
@@ -301,7 +305,10 @@ def get_filename(X):
     # Get NIfTI filename
     #___________________________________________________________________    
     
-    N = len(X)    
+    if isinstance(X, (list,)):
+        N  = len(X)     
+    else:
+        N = 1 
     
     if N == 1:
         f = X.get_filename()
