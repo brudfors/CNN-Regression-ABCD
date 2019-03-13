@@ -1,11 +1,12 @@
-function [img,mat,dm] = resample_img(Nii,samp,deg,bc)
+function [img,mat,dm] = resample_img(Nii,Mask,samp,deg,bc)
 % Resample an image using deg interpolation, with bc boundary conditions.
 % If samp < 1, does down-sampling; if samp > 1, does up-sampling.
 %_______________________________________________________________________
 %  Copyright (C) 2018 Wellcome Trust Centre for Neuroimaging
 
-if nargin < 3, deg = 0; end
-if nargin < 4, bc  = 0; end
+if nargin < 3, samp = 1; end
+if nargin < 4, deg  = 0; end
+if nargin < 5, bc   = 0; end
 
 if numel(samp) == 1, samp = samp*ones([1 3]); end
 if numel(deg)  == 1, deg  = deg*ones([1 3]);  end
@@ -20,13 +21,17 @@ img  = Nii.dat(:,:,:);
 mat0 = Nii.mat;
 dm0  = size(img);
 
+% Mask
+if nargin < 2 || isempty(Mask), Mask = true(dm0); end
+
+img(~Mask) = 0;
+
 if samp(1) == 1 || samp(1) == 0
     mat = mat0;
     dm  = dm0;
     
     return
 end
-
 
 % Output image properties
 D    = diag([samp 1]);
